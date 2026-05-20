@@ -1,0 +1,713 @@
+{
+  "settings": {
+    "title": "제주도 태교 여행 🌴 with 도담🐕♥️",
+    "startDate": "2026-05-28",
+    "endDate": "2026-05-31",
+    "totalBudget": 1800000,
+    "fuelPickup": 3,
+    "fuelCurrent": 2
+  },
+  "itinerary": [
+    {
+      "id": "d1_01",
+      "date": "2026-05-28",
+      "time": "10:00",
+      "endTime": "11:00",
+      "place": "집 → 김포공항",
+      "category": "🚗 이동",
+      "duration": "1시간",
+      "memo": "주차: 화물청사주차장",
+      "costPlanned": null,
+      "costActual": null
+    },
+    {
+      "id": "d1_02",
+      "date": "2026-05-28",
+      "time": "12:55",
+      "endTime": "14:10",
+      "place": "김포공항 → 제주공항",
+      "category": "✈️ 비행",
+      "duration": "1시간 15분",
+      "memo": "OZ8951",
+      "costPlanned": null,
+      "costActual": null
+    },
+    {
+      "id": "d1_03",
+      "date": "2026-05-28",
+      "time": "14:10",
+      "endTime": "15:30",
+      "place": "제주공항 → 렌트카 수령",
+      "category": "🚗 이동",
+      "duration": "1시간 20분",
+      "memo": ""
+    },
+    {
+      "id": "d1_04",
+      "date": "2026-05-28",
+      "time": "15:30",
+      "endTime": "15:40",
+      "place": "[점심-포장] 제주새우리",
+      "category": "🍽️ 식사",
+      "duration": "10분",
+      "memo": "딱새우김밥 / 예약: 064-900-2527",
+      "costPlanned": 30000,
+      "costActual": null
+    },
+    {
+      "id": "d1_05",
+      "date": "2026-05-28",
+      "time": "15:40",
+      "endTime": "16:10",
+      "place": "제주새우리 → 제주코기네",
+      "category": "🚗 이동",
+      "duration": "30분",
+      "memo": ""
+    },
+    {
+      "id": "d1_06",
+      "date": "2026-05-28",
+      "time": "16:10",
+      "endTime": "16:50",
+      "place": "제주코기네",
+      "category": "🛋️ 쉬자",
+      "duration": "40분",
+      "memo": ""
+    },
+    {
+      "id": "d1_07",
+      "date": "2026-05-28",
+      "time": "16:50",
+      "endTime": "17:10",
+      "place": "제주코기네 → 저팔계깡통연탄구이",
+      "category": "🚗 이동",
+      "duration": "20분",
+      "memo": "주차: 올리브영 제주함덕점 옆 무료주차장"
+    },
+    {
+      "id": "d1_08",
+      "date": "2026-05-28",
+      "time": "17:10",
+      "endTime": "18:40",
+      "place": "[저녁] 저팔계깡통연탄구이 함덕흑돼지",
+      "category": "🍽️ 식사",
+      "duration": "1시간 30분",
+      "memo": "흑돼지",
+      "costPlanned": 80000
+    },
+    {
+      "id": "d1_09",
+      "date": "2026-05-28",
+      "time": "18:40",
+      "endTime": "18:50",
+      "place": "저팔계깡통연탄구이 → 서우봉",
+      "category": "🚗 이동",
+      "duration": "10분",
+      "memo": "주차: 제주시 조천읍 조함해안로 585"
+    },
+    {
+      "id": "d1_10",
+      "date": "2026-05-28",
+      "time": "18:50",
+      "endTime": "20:00",
+      "place": "서우봉 일몰",
+      "category": "🚶 산책",
+      "duration": "1시간 10분",
+      "memo": "",
+      "link": "https://blog.naver.com/bonokebi1202/224098376460"
+    },
+    {
+      "id": "d1_11",
+      "date": "2026-05-28",
+      "time": "20:00",
+      "endTime": "20:20",
+      "place": "서우봉 → 제주코기네",
+      "category": "🚗 이동",
+      "duration": "20분",
+      "memo": ""
+    },
+    {
+      "id": "d2_01",
+      "date": "2026-05-29",
+      "time": "08:00",
+      "endTime": "08:30",
+      "place": "제주코기네 → 코난해변",
+      "category": "🚗 이동",
+      "duration": "30분",
+      "memo": ""
+    },
+    {
+      "id": "d2_02",
+      "date": "2026-05-29",
+      "time": "08:30",
+      "endTime": "09:00",
+      "place": "코난해변 수영",
+      "category": "🏊 수영",
+      "duration": "30분",
+      "memo": ""
+    },
+    {
+      "id": "d2_03",
+      "date": "2026-05-29",
+      "time": "09:00",
+      "endTime": "09:20",
+      "place": "코난해변 → 으뜨미",
+      "category": "🚗 이동",
+      "duration": "20분",
+      "memo": ""
+    },
+    {
+      "id": "d2_04",
+      "date": "2026-05-29",
+      "time": "09:20",
+      "endTime": "10:30",
+      "place": "[아점] 으뜨미",
+      "category": "🍽️ 식사",
+      "duration": "1시간 10분",
+      "memo": "우럭튀김 / 1인 14,000원 / 가게 앞 주차"
+    },
+    {
+      "id": "d2_05",
+      "date": "2026-05-29",
+      "time": "10:30",
+      "endTime": "10:40",
+      "place": "으뜨미 → 안도르",
+      "category": "🚗 이동",
+      "duration": "10분",
+      "memo": ""
+    },
+    {
+      "id": "d2_06",
+      "date": "2026-05-29",
+      "time": "10:40",
+      "endTime": "11:10",
+      "place": "안도르 스팟 촬영",
+      "category": "📸 사진",
+      "duration": "30분",
+      "memo": "",
+      "link": "https://blog.naver.com/rhg1212/223964052827"
+    },
+    {
+      "id": "d2_07",
+      "date": "2026-05-29",
+      "time": "11:10",
+      "endTime": "11:40",
+      "place": "안도르 커피",
+      "category": "☕ 카페",
+      "duration": "30분",
+      "memo": ""
+    },
+    {
+      "id": "d2_08",
+      "date": "2026-05-29",
+      "time": "11:40",
+      "endTime": "11:50",
+      "place": "안도르 → 비밀의숲",
+      "category": "🚗 이동",
+      "duration": "10분",
+      "memo": ""
+    },
+    {
+      "id": "d2_09",
+      "date": "2026-05-29",
+      "time": "11:50",
+      "endTime": "12:20",
+      "place": "비밀의숲 구경",
+      "category": "🚶 산책",
+      "duration": "30분",
+      "memo": "입장료 2인 10,000원"
+    },
+    {
+      "id": "d2_10",
+      "date": "2026-05-29",
+      "time": "12:20",
+      "endTime": "13:00",
+      "place": "비밀의숲 → 백한철 꽈배기",
+      "category": "🚗 이동",
+      "duration": "40분",
+      "memo": ""
+    },
+    {
+      "id": "d2_11",
+      "date": "2026-05-29",
+      "time": "13:00",
+      "endTime": "13:20",
+      "place": "백한철 꽈배기 포장",
+      "category": "🥐 간식",
+      "duration": "20분",
+      "memo": ""
+    },
+    {
+      "id": "d2_12",
+      "date": "2026-05-29",
+      "time": "13:20",
+      "endTime": "13:40",
+      "place": "백한철 꽈배기 → 태웃개",
+      "category": "🚗 이동",
+      "duration": "20분",
+      "memo": ""
+    },
+    {
+      "id": "d2_13",
+      "date": "2026-05-29",
+      "time": "13:40",
+      "endTime": "15:00",
+      "place": "태웃개 수영",
+      "category": "🏊 수영",
+      "duration": "1시간 20분",
+      "memo": ""
+    },
+    {
+      "id": "d2_14",
+      "date": "2026-05-29",
+      "time": "15:00",
+      "endTime": "15:20",
+      "place": "태웃개 → 광어다",
+      "category": "🚗 이동",
+      "duration": "20분",
+      "memo": ""
+    },
+    {
+      "id": "d2_15",
+      "date": "2026-05-29",
+      "time": "15:20",
+      "endTime": "16:00",
+      "place": "광어다 물회",
+      "category": "🍽️ 식사",
+      "duration": "40분",
+      "memo": "광어물회"
+    },
+    {
+      "id": "d2_16",
+      "date": "2026-05-29",
+      "time": "16:00",
+      "endTime": "16:50",
+      "place": "광어다 → 소금바치순이네",
+      "category": "🚗 이동",
+      "duration": "50분",
+      "memo": ""
+    },
+    {
+      "id": "d2_17",
+      "date": "2026-05-29",
+      "time": "16:50",
+      "endTime": "17:00",
+      "place": "소금바치순이네 포장",
+      "category": "🍽️ 식사",
+      "duration": "10분",
+      "memo": "돌문어볶음 소 30,000원 / 포장 예약: 064-784-1230"
+    },
+    {
+      "id": "d2_18",
+      "date": "2026-05-29",
+      "time": "17:00",
+      "endTime": "18:00",
+      "place": "소금바치순이네 → 제주코기네",
+      "category": "🚗 이동",
+      "duration": "1시간",
+      "memo": ""
+    },
+    {
+      "id": "d3_01",
+      "date": "2026-05-30",
+      "time": "09:00",
+      "endTime": "10:00",
+      "place": "제주코기네 스냅 촬영",
+      "category": "📸 사진",
+      "duration": "1시간",
+      "memo": ""
+    },
+    {
+      "id": "d3_02",
+      "date": "2026-05-30",
+      "time": "10:00",
+      "endTime": "11:00",
+      "place": "제주코기네 → 고객식당",
+      "category": "🚗 이동",
+      "duration": "1시간",
+      "memo": "주차: 동문공설시장"
+    },
+    {
+      "id": "d3_03",
+      "date": "2026-05-30",
+      "time": "11:00",
+      "endTime": "12:00",
+      "place": "고객식당 점심",
+      "category": "🍽️ 식사",
+      "duration": "1시간",
+      "memo": "갈치조림"
+    },
+    {
+      "id": "d3_04",
+      "date": "2026-05-30",
+      "time": "12:00",
+      "endTime": "12:50",
+      "place": "고객식당 → 시소",
+      "category": "🚗 이동",
+      "duration": "50분",
+      "memo": ""
+    },
+    {
+      "id": "d3_05",
+      "date": "2026-05-30",
+      "time": "12:50",
+      "endTime": "13:50",
+      "place": "시소 카이막 애월점",
+      "category": "☕ 카페",
+      "duration": "1시간",
+      "memo": ""
+    },
+    {
+      "id": "d3_06",
+      "date": "2026-05-30",
+      "time": "13:50",
+      "endTime": "14:30",
+      "place": "시소 → 보름사진관 협재",
+      "category": "🚗 이동",
+      "duration": "40분",
+      "memo": ""
+    },
+    {
+      "id": "d3_07",
+      "date": "2026-05-30",
+      "time": "14:30",
+      "endTime": "14:50",
+      "place": "보름사진관 사진",
+      "category": "📸 사진",
+      "duration": "20분",
+      "memo": ""
+    },
+    {
+      "id": "d3_08",
+      "date": "2026-05-30",
+      "time": "14:50",
+      "endTime": "15:20",
+      "place": "보름사진관 → 판포포구",
+      "category": "🚗 이동",
+      "duration": "30분",
+      "memo": ""
+    },
+    {
+      "id": "d3_09",
+      "date": "2026-05-30",
+      "time": "15:20",
+      "endTime": "16:00",
+      "place": "판포포구 수영",
+      "category": "🏊 수영",
+      "duration": "40분",
+      "memo": ""
+    },
+    {
+      "id": "d3_10",
+      "date": "2026-05-30",
+      "time": "16:00",
+      "endTime": "17:10",
+      "place": "판포포구 → 태광식당",
+      "category": "🚗 이동",
+      "duration": "1시간 10분",
+      "memo": ""
+    },
+    {
+      "id": "d3_11",
+      "date": "2026-05-30",
+      "time": "17:10",
+      "endTime": "18:20",
+      "place": "태광식당 한치주물럭",
+      "category": "🍽️ 식사",
+      "duration": "1시간 10분",
+      "memo": "한치주물럭"
+    },
+    {
+      "id": "d3_12",
+      "date": "2026-05-30",
+      "time": "18:20",
+      "endTime": "19:00",
+      "place": "태광식당 → 제주코기네",
+      "category": "🚗 이동",
+      "duration": "40분",
+      "memo": ""
+    },
+    {
+      "id": "d4_01",
+      "date": "2026-05-31",
+      "time": "09:50",
+      "endTime": "10:00",
+      "place": "제주코기네 → 시소",
+      "category": "🚶 산책",
+      "duration": "10분",
+      "memo": ""
+    },
+    {
+      "id": "d4_02",
+      "date": "2026-05-31",
+      "time": "10:00",
+      "endTime": "10:20",
+      "place": "시소 커피 & 빵",
+      "category": "☕ 카페",
+      "duration": "20분",
+      "memo": ""
+    },
+    {
+      "id": "d4_03",
+      "date": "2026-05-31",
+      "time": "10:20",
+      "endTime": "10:50",
+      "place": "산책 & 시소 → 제주코기네",
+      "category": "🚶 산책",
+      "duration": "30분",
+      "memo": ""
+    },
+    {
+      "id": "d4_04",
+      "date": "2026-05-31",
+      "time": "10:50",
+      "endTime": "11:45",
+      "place": "제주코기네",
+      "category": "🛋️ 쉬자",
+      "duration": "55분",
+      "memo": ""
+    },
+    {
+      "id": "d4_05",
+      "date": "2026-05-31",
+      "time": "11:45",
+      "endTime": "12:35",
+      "place": "제주코기네 → 본날",
+      "category": "🚗 이동",
+      "duration": "50분",
+      "memo": ""
+    },
+    {
+      "id": "d4_06",
+      "date": "2026-05-31",
+      "time": "12:35",
+      "endTime": "13:15",
+      "place": "본날 점심",
+      "category": "🍽️ 식사",
+      "duration": "40분",
+      "memo": "접짝뼈국 / 12,000원"
+    },
+    {
+      "id": "d4_07",
+      "date": "2026-05-31",
+      "time": "13:15",
+      "endTime": "13:30",
+      "place": "본날 → 썬렌트카 반납",
+      "category": "🚗 이동",
+      "duration": "15분",
+      "memo": ""
+    },
+    {
+      "id": "d4_08",
+      "date": "2026-05-31",
+      "time": "15:10",
+      "endTime": "16:25",
+      "place": "제주 → 김포 ✈️",
+      "category": "✈️ 비행",
+      "duration": "1시간 15분",
+      "memo": ""
+    }
+  ],
+  "checklist": [
+    {
+      "id": "c_d01",
+      "category": "🐕 도담",
+      "item": "건조 가운 2장",
+      "checked": false
+    },
+    {
+      "id": "c_d02",
+      "category": "🐕 도담",
+      "item": "수건 3장",
+      "checked": false
+    },
+    {
+      "id": "c_d03",
+      "category": "🐕 도담",
+      "item": "무선 선풍기",
+      "checked": false
+    },
+    {
+      "id": "c_d04",
+      "category": "🐕 도담",
+      "item": "진드기 기피제",
+      "checked": false
+    },
+    {
+      "id": "c_d05",
+      "category": "🐕 도담",
+      "item": "버그가드 2장",
+      "checked": false
+    },
+    {
+      "id": "c_d06",
+      "category": "🐕 도담",
+      "item": "쿨매트",
+      "checked": false
+    },
+    {
+      "id": "c_d07",
+      "category": "🐕 도담",
+      "item": "하드켄넬",
+      "checked": false
+    },
+    {
+      "id": "c_d08",
+      "category": "🐕 도담",
+      "item": "목줄 2개",
+      "checked": false
+    },
+    {
+      "id": "c_d09",
+      "category": "🐕 도담",
+      "item": "인식표 2개",
+      "checked": false
+    },
+    {
+      "id": "c_d10",
+      "category": "🐕 도담",
+      "item": "똥봉투 여유분",
+      "checked": false
+    },
+    {
+      "id": "c_d11",
+      "category": "🐕 도담",
+      "item": "영양제",
+      "checked": false
+    },
+    {
+      "id": "c_d12",
+      "category": "🐕 도담",
+      "item": "사료",
+      "checked": false
+    },
+    {
+      "id": "c_d13",
+      "category": "🐕 도담",
+      "item": "진통제",
+      "checked": false
+    },
+    {
+      "id": "c_h01",
+      "category": "🤰 현지",
+      "item": "임신 확인증",
+      "checked": false
+    },
+    {
+      "id": "c_s01",
+      "category": "👕 상훈",
+      "item": "반바지 3개",
+      "checked": false
+    },
+    {
+      "id": "c_s02",
+      "category": "👕 상훈",
+      "item": "반팔 6개",
+      "checked": false
+    },
+    {
+      "id": "c_s03",
+      "category": "👕 상훈",
+      "item": "속옷 6개",
+      "checked": false
+    },
+    {
+      "id": "c_s04",
+      "category": "👕 상훈",
+      "item": "양말 1개",
+      "checked": false
+    },
+    {
+      "id": "c_s05",
+      "category": "👕 상훈",
+      "item": "긴팔 1개",
+      "checked": false
+    },
+    {
+      "id": "c_s06",
+      "category": "👕 상훈",
+      "item": "바람막이",
+      "checked": false
+    },
+    {
+      "id": "c_s07",
+      "category": "👕 상훈",
+      "item": "긴바지 1개",
+      "checked": false
+    }
+  ],
+  "budget": [
+    {
+      "id": "b_01",
+      "category": "항공권",
+      "description": "",
+      "planned": 412800,
+      "actual": 412800,
+      "memo": ""
+    },
+    {
+      "id": "b_07",
+      "category": "주차비",
+      "description": "",
+      "planned": 60000,
+      "actual": 32000,
+      "memo": ""
+    },
+    {
+      "id": "b_02",
+      "category": "숙소",
+      "description": "",
+      "planned": 540000,
+      "actual": 368000,
+      "memo": ""
+    },
+    {
+      "id": "b_03",
+      "category": "렌트카",
+      "description": "",
+      "planned": 210000,
+      "actual": 96000,
+      "memo": ""
+    },
+    {
+      "id": "b_04",
+      "category": "식비",
+      "description": "",
+      "planned": 300000,
+      "actual": null,
+      "memo": ""
+    },
+    {
+      "id": "b_09",
+      "category": "카페&디저트",
+      "description": "",
+      "planned": 50000,
+      "actual": null,
+      "memo": ""
+    },
+    {
+      "id": "b_08",
+      "category": "주유비",
+      "description": "",
+      "planned": null,
+      "actual": null,
+      "memo": ""
+    },
+    {
+      "id": "b_05",
+      "category": "입장료/체험",
+      "description": "",
+      "planned": 10000,
+      "actual": null,
+      "memo": ""
+    },
+    {
+      "id": "b_06",
+      "category": "기타",
+      "description": "",
+      "planned": null,
+      "actual": null,
+      "memo": ""
+    }
+  ]
+}
