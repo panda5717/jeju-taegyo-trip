@@ -27,19 +27,20 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 4px 10px;
+  padding: 2px 8px;
   border-bottom: 1px solid #e0e0e0;
 }
 .top-back-btn {
   background: none;
   border: none;
-  font-size: 0.85rem;
+  font-size: 0.72rem;
   font-weight: 600;
   color: #0077b6;
   text-decoration: none;
   cursor: pointer;
-  padding: 2px 6px;
-  border-radius: 6px;
+  padding: 1px 4px;
+  border-radius: 4px;
+  line-height: 1.4;
   -webkit-tap-highlight-color: transparent;
 }
 .top-back-btn:active { background: #f0f0f0; }
@@ -47,9 +48,9 @@ header {
   background: none;
   border: none;
   border-radius: 50%;
-  width: 28px;
-  height: 28px;
-  font-size: 0.95rem;
+  width: 22px;
+  height: 22px;
+  font-size: 0.75rem;
   cursor: pointer;
   display: flex;
   align-items: center;
