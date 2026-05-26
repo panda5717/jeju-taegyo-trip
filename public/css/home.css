@@ -1,0 +1,128 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #f8f9fa;
+  color: #1a1a1a;
+  padding: 16px;
+  min-height: 100vh;
+}
+
+.page-header {
+  text-align: center;
+  padding: 32px 16px 24px;
+  background: #fff;
+  border-radius: 16px;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.page-header h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a1a1a;
+  letter-spacing: -0.3px;
+}
+
+.section-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #aaa;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  padding: 0 2px;
+}
+
+.trip-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.trip-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  border: 1.5px solid transparent;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.trip-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.11);
+}
+
+.trip-card.add-card {
+  border: 1.5px dashed #e0e0e0;
+  box-shadow: none;
+  cursor: default;
+}
+
+.trip-card.add-card:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.card-thumb {
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+}
+
+.thumb-jeju {
+  background: linear-gradient(135deg, #d4f5e3 0%, #a8e6cf 100%);
+}
+
+.thumb-add {
+  background: #f3f4f6;
+  color: #ccc;
+  font-size: 28px;
+}
+
+.card-body {
+  padding: 12px 14px 14px;
+}
+
+.card-body h3 {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.4;
+}
+
+.add-card .card-body h3 {
+  color: #bbb;
+  font-weight: 500;
+}
+
+.card-body .meta {
+  font-size: 11px;
+  color: #aaa;
+  margin-top: 4px;
+}
+
+.card-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 20px;
+  margin-top: 8px;
+}
+
+.badge-plan {
+  background: #e3f2fd;
+  color: #1565c0;
+}
