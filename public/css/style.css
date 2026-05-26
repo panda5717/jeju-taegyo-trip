@@ -76,6 +76,8 @@ header h1 {
   letter-spacing: -0.01em;
   text-shadow: 0 1px 6px rgba(0,0,0,0.18);
   text-align: center;
+  padding: 0 70px;
+  width: 100%;
 }
 .dates {
   font-size: 0.82rem;
