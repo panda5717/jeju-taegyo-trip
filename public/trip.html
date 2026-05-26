@@ -7,11 +7,14 @@
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+  <div class="top-bar">
+    <a href="/" class="top-back-btn">← 목록</a>
+    <button id="refreshBtn" class="top-refresh-btn" onclick="refreshApp()">🔄</button>
+  </div>
+
   <header>
     <h1 id="tripTitle">제주도 태교 여행 🌴</h1>
     <p id="tripDates" class="dates"></p>
-    <a href="/" class="back-btn" title="여행 목록으로">← 목록</a>
-    <button id="refreshBtn" class="refresh-btn" onclick="refreshApp()">🔄</button>
   </header>
 
   <div id="nowBanner" class="now-banner hidden">

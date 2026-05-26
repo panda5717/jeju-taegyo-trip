@@ -22,30 +22,29 @@ header {
   position: relative;
   overflow: hidden;
 }
-.back-btn {
-  position: absolute;
-  top: 12px;
-  left: 14px;
-  background: rgba(255,255,255,0.2);
-  border: none;
-  border-radius: 20px;
-  padding: 6px 12px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #fff;
-  text-decoration: none;
-  cursor: pointer;
+.top-bar {
+  background: #fff;
   display: flex;
   align-items: center;
-  transition: background 0.2s;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-bottom: 1px solid #e0e0e0;
+}
+.top-back-btn {
+  background: none;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #0077b6;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 8px;
   -webkit-tap-highlight-color: transparent;
 }
-.back-btn:active { background: rgba(255,255,255,0.35); }
-.refresh-btn {
-  position: absolute;
-  top: 12px;
-  right: 14px;
-  background: rgba(255,255,255,0.2);
+.top-back-btn:active { background: #f0f0f0; }
+.top-refresh-btn {
+  background: none;
   border: none;
   border-radius: 50%;
   width: 36px;
@@ -55,11 +54,10 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s;
   -webkit-tap-highlight-color: transparent;
 }
-.refresh-btn:active { background: rgba(255,255,255,0.35); }
-.refresh-btn.spinning { animation: spin 0.7s linear infinite; pointer-events: none; }
+.top-refresh-btn:active { background: #f0f0f0; }
+.top-refresh-btn.spinning { animation: spin 0.7s linear infinite; pointer-events: none; }
 @keyframes spin { to { transform: rotate(360deg); } }
 header::before {
   content: '🌊 🐚 🌴 ☀️ 🐬';
@@ -76,8 +74,6 @@ header h1 {
   letter-spacing: -0.01em;
   text-shadow: 0 1px 6px rgba(0,0,0,0.18);
   text-align: center;
-  padding: 0 70px;
-  width: 100%;
 }
 .dates {
   font-size: 0.82rem;
