@@ -709,7 +709,8 @@ const CHECK_CATEGORIES = ['🐕 도담', '🤰 현지', '👕 상훈', '🧳 공
 function openAddCheck() {
   editingType = 'checklist';
   document.getElementById('modalTitle').textContent = '준비물 추가';
-  const catOpts = CHECK_CATEGORIES.map(c => `<option>${c}</option>`).join('');
+  const catOpts = `<option value="" disabled selected>카테고리 선택</option>` +
+    CHECK_CATEGORIES.map(c => `<option>${c}</option>`).join('');
   document.getElementById('modalBody').innerHTML = `
     <div class="form-group">
       <label>카테고리</label>
@@ -725,11 +726,13 @@ function openAddCheck() {
   document.getElementById('modalSave').onclick = async () => {
     const category = document.getElementById('f_cat').value;
     const item = document.getElementById('f_item').value.trim();
+    if (!category) return alert('카테고리를 선택해주세요.');
     if (!item) return alert('항목을 입력해주세요.');
     const created = await api('POST', '/api/checklist', { category, item });
     state.checklist.push(created);
-    closeModal();
     renderChecklist();
+    const el = document.getElementById('f_item');
+    if (el) { el.value = ''; el.focus(); }
   };
   openModal();
   setTimeout(() => {
