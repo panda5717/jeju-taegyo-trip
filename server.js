@@ -189,28 +189,44 @@ app.delete('/api/budget/:id', async (req, res) => {
   }
 });
 
-// geocode proxy — Client Secret은 서버에서만 사용
+// geocode proxy — 클라이언트에 Secret 노출 방지
 app.get('/api/geocode', async (req, res) => {
   const query = req.query.q;
   if (!query) return res.status(400).json({ error: 'q required' });
   try {
-    const url = `https://maps.apigw.ntruss.com/map-geocode/v2/geocode?query=${encodeURIComponent(query)}`;
-    const r = await fetch(url, {
+    // 1차: Naver Local Search (장소명 → 좌표, 한국 비즈니스/관광지에 최적)
+    const searchUrl = `https://openapi.naver.com/v1/search/local.json?query=${encodeURIComponent(query)}&display=1`;
+    const searchR = await fetch(searchUrl, {
+      headers: {
+        'X-Naver-Client-Id': process.env.NAVER_SEARCH_ID,
+        'X-Naver-Client-Secret': process.env.NAVER_SEARCH_SECRET,
+      },
+    });
+    const searchData = await searchR.json();
+    if (searchData.items && searchData.items.length > 0) {
+      const item = searchData.items[0];
+      return res.json({
+        lat: parseInt(item.mapy) / 1e7,
+        lng: parseInt(item.mapx) / 1e7,
+      });
+    }
+
+    // 2차: NCP Geocoding (도로명 주소 형식에 유효)
+    const ncpUrl = `https://maps.apigw.ntruss.com/map-geocode/v2/geocode?query=${encodeURIComponent(query)}`;
+    const ncpR = await fetch(ncpUrl, {
       headers: {
         'x-ncp-apigw-api-key-id': process.env.NAVER_CLIENT_ID,
         'x-ncp-apigw-api-key': process.env.NAVER_CLIENT_SECRET,
         Accept: 'application/json',
       },
     });
-    // 1차: NCP Geocoding (도로명 주소 기반)
-    const text = await r.text();
-    const data = JSON.parse(text);
-    if (data.addresses && data.addresses.length > 0) {
-      const { x, y } = data.addresses[0];
+    const ncpData = await ncpR.json();
+    if (ncpData.addresses && ncpData.addresses.length > 0) {
+      const { x, y } = ncpData.addresses[0];
       return res.json({ lat: parseFloat(y), lng: parseFloat(x) });
     }
 
-    // 2차 fallback: OpenStreetMap Nominatim (장소명 검색 지원, 무료)
+    // 3차: OpenStreetMap Nominatim (OSM 기반 fallback)
     const nomUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query + ' 제주')}&format=json&limit=1&accept-language=ko&countrycodes=kr`;
     const nomR = await fetch(nomUrl, { headers: { 'User-Agent': 'DomFamilyTripPlanner/1.0' } });
     const nomData = await nomR.json();
