@@ -812,6 +812,8 @@ function stripComma(v) {
 const GEO_CACHE_KEY = 'geoCache_v1';
 const GEO_CACHE_TTL = 30 * 24 * 60 * 60 * 1000;
 const SKIP_MAP_CATS = ['이동', '비행'];
+// 지도에서 제외할 비장소 키워드 (실제 위치 없는 일반 명사)
+const SKIP_MAP_NAMES = new Set(['쉬기', '쉬기 &', '본날', '산책']);
 
 function getGeoCache() {
   try { return JSON.parse(localStorage.getItem(GEO_CACHE_KEY) || '{}'); } catch { return {}; }
@@ -847,7 +849,12 @@ async function renderDayMap(items) {
   const container = document.getElementById('dayMapContainer');
   if (!container) return;
 
-  const mapItems = items.filter(i => !SKIP_MAP_CATS.some(k => (i.category || '').includes(k)));
+  const mapItems = items.filter(i => {
+    if (SKIP_MAP_CATS.some(k => (i.category || '').includes(k))) return false;
+    const name = extractMapName(i.place);
+    if (!name || name.length <= 1 || SKIP_MAP_NAMES.has(name)) return false;
+    return true;
+  });
   if (mapItems.length === 0) { container.innerHTML = ''; return; }
 
   container.innerHTML = '<div class="day-map-loading">📍 지도 불러오는 중...</div>';

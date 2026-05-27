@@ -195,7 +195,8 @@ app.get('/api/geocode', async (req, res) => {
   if (!query) return res.status(400).json({ error: 'q required' });
   try {
     // 1차: Naver Local Search (장소명 → 좌표, 한국 비즈니스/관광지에 최적)
-    const searchUrl = `https://openapi.naver.com/v1/search/local.json?query=${encodeURIComponent(query)}&display=1`;
+    // "제주" 추가로 동명이지 방지 (예: 서울 안도르 vs 제주 안도르)
+    const searchUrl = `https://openapi.naver.com/v1/search/local.json?query=${encodeURIComponent(query + ' 제주')}&display=1`;
     const searchR = await fetch(searchUrl, {
       headers: {
         'X-Naver-Client-Id': process.env.NAVER_SEARCH_ID,
