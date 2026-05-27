@@ -203,8 +203,9 @@ app.get('/api/geocode', async (req, res) => {
       },
     });
     const text = await r.text();
-    console.log('[geocode] status:', r.status, 'body:', text.slice(0, 300));
     const data = JSON.parse(text);
+    // DEBUG: 임시로 raw 응답 포함
+    if (req.query.debug) return res.json({ _status: r.status, _raw: data });
     if (data.addresses && data.addresses.length > 0) {
       const { x, y } = data.addresses[0];
       res.json({ lat: parseFloat(y), lng: parseFloat(x) });
