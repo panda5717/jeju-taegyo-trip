@@ -837,9 +837,10 @@ async function geocodePlace(name) {
 }
 
 function extractMapName(place) {
-  let name = place.replace(/^\[.*?\]\s*/, '');
-  if (name.includes('→')) name = name.split('→').pop().trim();
-  return name.trim();
+  let name = place.replace(/^\[.*?\]\s*/, '');           // [접두사] 제거
+  if (name.includes('→')) name = name.split('→').pop().trim(); // A→B에서 B 추출
+  name = name.replace(/\s*(수영|구경|포장|촬영|저녁|점심|아점|아침|일몰|산책|구경&수영|&수영|스팟\s*촬영)\s*$/, '').trim();
+  return name;
 }
 
 async function renderDayMap(items) {

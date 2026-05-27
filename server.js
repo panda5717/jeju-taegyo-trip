@@ -202,16 +202,23 @@ app.get('/api/geocode', async (req, res) => {
         Accept: 'application/json',
       },
     });
+    // 1차: NCP Geocoding (도로명 주소 기반)
     const text = await r.text();
     const data = JSON.parse(text);
-    // DEBUG: 임시로 raw 응답 포함
-    if (req.query.debug) return res.json({ _status: r.status, _raw: data });
     if (data.addresses && data.addresses.length > 0) {
       const { x, y } = data.addresses[0];
-      res.json({ lat: parseFloat(y), lng: parseFloat(x) });
-    } else {
-      res.json({ lat: null, lng: null });
+      return res.json({ lat: parseFloat(y), lng: parseFloat(x) });
     }
+
+    // 2차 fallback: OpenStreetMap Nominatim (장소명 검색 지원, 무료)
+    const nomUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query + ' 제주')}&format=json&limit=1&accept-language=ko&countrycodes=kr`;
+    const nomR = await fetch(nomUrl, { headers: { 'User-Agent': 'DomFamilyTripPlanner/1.0' } });
+    const nomData = await nomR.json();
+    if (nomData.length > 0) {
+      return res.json({ lat: parseFloat(nomData[0].lat), lng: parseFloat(nomData[0].lon) });
+    }
+
+    res.json({ lat: null, lng: null });
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
