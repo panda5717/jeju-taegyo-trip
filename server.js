@@ -12,12 +12,22 @@ const supabase = createClient(
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// In-memory cache (survives across requests on warm Vercel Fluid Compute instances)
+let tripCache = null;
+let tripCacheTime = 0;
+const CACHE_TTL = 30_000; // 30초
+
+function invalidateCache() { tripCache = null; }
+
 function uid() {
   return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
 }
 
 // 전체 데이터
 app.get('/api/trip', async (req, res) => {
+  if (tripCache && Date.now() - tripCacheTime < CACHE_TTL) {
+    return res.json(tripCache);
+  }
   try {
     const [s, i, c, b] = await Promise.all([
       supabase.from('settings').select('data').eq('id', 1).single(),
@@ -29,12 +39,14 @@ app.get('/api/trip', async (req, res) => {
     if (i.error) throw i.error;
     if (c.error) throw c.error;
     if (b.error) throw b.error;
-    res.json({
+    tripCache = {
       settings: s.data?.data ?? {},
       itinerary: (i.data || []).map(r => ({ id: r.id, ...r.data })),
       checklist: (c.data || []).map(r => ({ id: r.id, ...r.data })),
       budget: (b.data || []).map(r => ({ id: r.id, ...r.data })),
-    });
+    };
+    tripCacheTime = Date.now();
+    res.json(tripCache);
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
@@ -47,6 +59,7 @@ app.put('/api/settings', async (req, res) => {
     const merged = { ...(existing?.data ?? {}), ...req.body };
     const { data, error } = await supabase.from('settings').upsert({ id: 1, data: merged }).select('data').single();
     if (error) throw error;
+    invalidateCache();
     res.json(data.data);
   } catch (e) {
     res.status(500).json({ error: e.message });
@@ -60,6 +73,7 @@ app.post('/api/itinerary', async (req, res) => {
     const { id: _, ...data } = req.body;
     const { error } = await supabase.from('itinerary').insert({ id, data });
     if (error) throw error;
+    invalidateCache();
     res.json({ id, ...data });
   } catch (e) {
     res.status(500).json({ error: e.message });
@@ -74,6 +88,7 @@ app.put('/api/itinerary/:id', async (req, res) => {
     const merged = { ...existing.data, ...updates };
     const { error } = await supabase.from('itinerary').update({ data: merged }).eq('id', req.params.id);
     if (error) throw error;
+    invalidateCache();
     res.json({ id: req.params.id, ...merged });
   } catch (e) {
     res.status(500).json({ error: e.message });
@@ -84,6 +99,7 @@ app.delete('/api/itinerary/:id', async (req, res) => {
   try {
     const { error } = await supabase.from('itinerary').delete().eq('id', req.params.id);
     if (error) throw error;
+    invalidateCache();
     res.json({ ok: true });
   } catch (e) {
     res.status(500).json({ error: e.message });
@@ -97,6 +113,7 @@ app.post('/api/checklist', async (req, res) => {
     const { id: _, ...data } = req.body;
     const { error } = await supabase.from('checklist').insert({ id, data: { checked: false, ...data } });
     if (error) throw error;
+    invalidateCache();
     res.json({ id, checked: false, ...data });
   } catch (e) {
     res.status(500).json({ error: e.message });
@@ -111,6 +128,7 @@ app.put('/api/checklist/:id', async (req, res) => {
     const merged = { ...existing.data, ...updates };
     const { error } = await supabase.from('checklist').update({ data: merged }).eq('id', req.params.id);
     if (error) throw error;
+    invalidateCache();
     res.json({ id: req.params.id, ...merged });
   } catch (e) {
     res.status(500).json({ error: e.message });
@@ -121,6 +139,7 @@ app.delete('/api/checklist/:id', async (req, res) => {
   try {
     const { error } = await supabase.from('checklist').delete().eq('id', req.params.id);
     if (error) throw error;
+    invalidateCache();
     res.json({ ok: true });
   } catch (e) {
     res.status(500).json({ error: e.message });
@@ -134,6 +153,7 @@ app.post('/api/budget', async (req, res) => {
     const { id: _, ...data } = req.body;
     const { error } = await supabase.from('budget').insert({ id, data: { planned: null, actual: null, memo: '', ...data } });
     if (error) throw error;
+    invalidateCache();
     res.json({ id, planned: null, actual: null, memo: '', ...data });
   } catch (e) {
     res.status(500).json({ error: e.message });
@@ -148,6 +168,7 @@ app.put('/api/budget/:id', async (req, res) => {
     const merged = { ...existing.data, ...updates };
     const { error } = await supabase.from('budget').update({ data: merged }).eq('id', req.params.id);
     if (error) throw error;
+    invalidateCache();
     res.json({ id: req.params.id, ...merged });
   } catch (e) {
     res.status(500).json({ error: e.message });
@@ -158,6 +179,7 @@ app.delete('/api/budget/:id', async (req, res) => {
   try {
     const { error } = await supabase.from('budget').delete().eq('id', req.params.id);
     if (error) throw error;
+    invalidateCache();
     res.json({ ok: true });
   } catch (e) {
     res.status(500).json({ error: e.message });
