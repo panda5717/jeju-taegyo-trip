@@ -483,8 +483,11 @@ header h1 {
 .summary-row.diff.over { color: #e53935; }
 .summary-row.diff.under { color: #0077b6; }
 .summary-row.remaining { font-weight: 800; font-size: 0.95rem; }
-.summary-row.remaining.safe { color: #0077b6; }
-.summary-row.remaining.over { color: #e53935; }
+.summary-row.remaining.plenty  { color: #16a34a; }   /* 60%↑ 초록 */
+.summary-row.remaining.safe    { color: #0077b6; }   /* 30~60% 파랑 */
+.summary-row.remaining.warning { color: #f59e0b; }   /* 10~30% 주황 */
+.summary-row.remaining.critical{ color: #ef4444; }   /* 10%↓ 빨강 */
+.summary-row.remaining.over    { color: #dc2626; }   /* 초과 진빨강 */
 .total-budget-row {
   display: flex;
   justify-content: space-between;

@@ -474,6 +474,12 @@ function renderBudget() {
 
   const usedPct = totalBudget > 0 ? Math.min(totalActual / totalBudget * 100, 100) : 0;
   const barColor = usedPct >= 90 ? '#e53935' : usedPct >= 70 ? '#fb8c00' : '#0096c7';
+  const remainPct = totalBudget > 0 ? (remaining / totalBudget) * 100 : 100;
+  const remainClass = remaining < 0 ? 'over'
+    : remainPct < 10 ? 'critical'
+    : remainPct < 30 ? 'warning'
+    : remainPct < 60 ? 'safe'
+    : 'plenty';
 
   document.getElementById('budgetSummary').innerHTML = `
     <div class="total-budget-row">
@@ -485,7 +491,7 @@ function renderBudget() {
     <div class="budget-remain-bar">
       <div class="budget-remain-fill" style="width:${usedPct.toFixed(1)}%;background:${barColor}"></div>
     </div>
-    <div class="summary-row remaining ${remaining >= 0 ? 'safe' : 'over'}">
+    <div class="summary-row remaining ${remainClass}">
       <span>${remaining >= 0 ? '💰 잔여 예산' : '⚠️ 예산 초과'}</span>
       <span>${fmtWon(Math.abs(remaining))}</span>
     </div>
