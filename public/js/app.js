@@ -717,7 +717,10 @@ function openAddCheck() {
     </div>
     <div class="form-group">
       <label>항목</label>
-      <input id="f_item" type="text" placeholder="예: 선크림">
+      <div class="input-clear-wrap">
+        <input id="f_item" type="text" placeholder="예: 선크림">
+        <button type="button" class="btn-input-clear" onclick="this.previousElementSibling.value='';this.previousElementSibling.focus()">✕</button>
+      </div>
     </div>`;
   document.getElementById('modalSave').onclick = async () => {
     const category = document.getElementById('f_cat').value;
@@ -729,6 +732,10 @@ function openAddCheck() {
     renderChecklist();
   };
   openModal();
+  setTimeout(() => {
+    const el = document.getElementById('f_item');
+    if (el) el.value = '';
+  }, 0);
 }
 
 /* ===== Modal: Budget Add ===== */
@@ -781,6 +788,7 @@ function openModal() {
 function closeModal() {
   document.getElementById('modal').classList.add('hidden');
   document.getElementById('modalOverlay').classList.add('hidden');
+  document.getElementById('modalBody').innerHTML = '';
   editingId = null;
 }
 
