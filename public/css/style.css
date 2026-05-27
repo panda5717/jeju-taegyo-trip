@@ -38,7 +38,7 @@ header {
   color: #0077b6;
   text-decoration: none;
   cursor: pointer;
-  padding: 1px 4px;
+  padding: 6px 8px;
   border-radius: 4px;
   line-height: 1.4;
   -webkit-tap-highlight-color: transparent;
@@ -48,9 +48,9 @@ header {
   background: none;
   border: none;
   border-radius: 50%;
-  width: 22px;
-  height: 22px;
-  font-size: 0.75rem;
+  width: 32px;
+  height: 32px;
+  font-size: 0.85rem;
   cursor: pointer;
   display: flex;
   align-items: center;

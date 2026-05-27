@@ -12,12 +12,15 @@ const supabase = createClient(
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// In-memory cache (survives across requests on warm Vercel Fluid Compute instances)
+// In-memory cache using Vercel Fluid Compute instance reuse.
+// Limitation: each parallel instance has its own cache, so a write on instance A
+// won't invalidate instance B — stale reads possible for up to CACHE_TTL.
+// Acceptable for a low-traffic single-family app.
 let tripCache = null;
 let tripCacheTime = 0;
 const CACHE_TTL = 30_000; // 30초
 
-function invalidateCache() { tripCache = null; }
+function invalidateCache() { tripCache = null; tripCacheTime = 0; }
 
 function uid() {
   return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
