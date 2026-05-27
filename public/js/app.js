@@ -696,7 +696,7 @@ async function saveItineraryItem() {
 }
 
 /* ===== Modal: Checklist Add ===== */
-const CHECK_CATEGORIES = ['🐕 도담', '🤰 현지', '👕 상훈'];
+const CHECK_CATEGORIES = ['🐕 도담', '🤰 현지', '👕 상훈', '🧳 공통'];
 
 function openAddCheck() {
   editingType = 'checklist';
