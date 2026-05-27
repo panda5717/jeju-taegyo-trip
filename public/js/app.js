@@ -5,6 +5,7 @@ let currentTab = 'itinerary';
 let editingId = null;
 let editingType = null;
 let nowBannerInterval = null;
+let dayMap = null;
 
 /* ===== Init ===== */
 async function init() {
@@ -241,6 +242,7 @@ function renderItinerary() {
   document.getElementById('itineraryList').innerHTML =
     buildStats(items) +
     `<div class="itin-cards">${cards}</div>`;
+  renderDayMap(items);
 }
 
 async function saveCost(id, field, value) {
@@ -804,6 +806,124 @@ function onNumInput(el) {
 }
 function stripComma(v) {
   return v === '' ? null : Number(String(v).replace(/,/g, ''));
+}
+
+/* ===== Day Map ===== */
+const GEO_CACHE_KEY = 'geoCache_v1';
+const GEO_CACHE_TTL = 30 * 24 * 60 * 60 * 1000;
+const SKIP_MAP_CATS = ['이동', '비행'];
+
+function getGeoCache() {
+  try { return JSON.parse(localStorage.getItem(GEO_CACHE_KEY) || '{}'); } catch { return {}; }
+}
+function saveGeoCache(cache) {
+  try { localStorage.setItem(GEO_CACHE_KEY, JSON.stringify(cache)); } catch {}
+}
+
+async function geocodePlace(name) {
+  const cache = getGeoCache();
+  const hit = cache[name];
+  if (hit && Date.now() - hit.ts < GEO_CACHE_TTL) return { lat: hit.lat, lng: hit.lng };
+  try {
+    const data = await api('GET', `/api/geocode?q=${encodeURIComponent(name)}`);
+    if (data.lat) {
+      const c = getGeoCache();
+      c[name] = { lat: data.lat, lng: data.lng, ts: Date.now() };
+      saveGeoCache(c);
+      return { lat: data.lat, lng: data.lng };
+    }
+  } catch {}
+  return { lat: null, lng: null };
+}
+
+function extractMapName(place) {
+  let name = place.replace(/^\[.*?\]\s*/, '');
+  if (name.includes('→')) name = name.split('→').pop().trim();
+  return name.trim();
+}
+
+async function renderDayMap(items) {
+  const container = document.getElementById('dayMapContainer');
+  if (!container) return;
+
+  const mapItems = items.filter(i => !SKIP_MAP_CATS.some(k => (i.category || '').includes(k)));
+  if (mapItems.length === 0) { container.innerHTML = ''; return; }
+
+  container.innerHTML = '<div class="day-map-loading">📍 지도 불러오는 중...</div>';
+
+  const coords = await Promise.all(
+    mapItems.map(async item => {
+      const name = extractMapName(item.place);
+      const { lat, lng } = await geocodePlace(name);
+      return { name, lat, lng };
+    })
+  );
+  const valid = coords.filter(c => c.lat && c.lng);
+
+  if (valid.length === 0) { container.innerHTML = ''; return; }
+
+  container.innerHTML = '<div id="dayMapEl" class="day-map-el"></div>';
+
+  if (typeof naver === 'undefined' || !naver.maps) { container.innerHTML = ''; return; }
+
+  const centerLat = valid.reduce((s, c) => s + c.lat, 0) / valid.length;
+  const centerLng = valid.reduce((s, c) => s + c.lng, 0) / valid.length;
+
+  dayMap = new naver.maps.Map('dayMapEl', {
+    center: new naver.maps.LatLng(centerLat, centerLng),
+    zoom: 12,
+    mapTypeControl: false,
+    scaleControl: false,
+    logoControl: false,
+    mapDataControl: false,
+  });
+
+  const path = [];
+  valid.forEach((c, idx) => {
+    const pos = new naver.maps.LatLng(c.lat, c.lng);
+    path.push(pos);
+
+    const marker = new naver.maps.Marker({
+      position: pos,
+      map: dayMap,
+      icon: {
+        content: `<div class="map-marker-num">${idx + 1}</div>`,
+        anchor: new naver.maps.Point(14, 14),
+      },
+    });
+
+    const infoWin = new naver.maps.InfoWindow({
+      content: `<div class="map-info-win">${esc(c.name)}</div>`,
+      borderWidth: 0,
+      backgroundColor: 'transparent',
+      disableAnchor: true,
+    });
+
+    naver.maps.Event.addListener(marker, 'click', () => {
+      infoWin.getMap() ? infoWin.close() : infoWin.open(dayMap, marker);
+    });
+  });
+
+  if (valid.length > 1) {
+    new naver.maps.Polyline({
+      map: dayMap,
+      path,
+      strokeColor: '#0077b6',
+      strokeOpacity: 0.45,
+      strokeWeight: 2,
+      strokeStyle: 'shortdash',
+    });
+
+    const lats = valid.map(c => c.lat);
+    const lngs = valid.map(c => c.lng);
+    dayMap.fitBounds(
+      new naver.maps.LatLngBounds(
+        new naver.maps.LatLng(Math.min(...lats), Math.min(...lngs)),
+        new naver.maps.LatLng(Math.max(...lats), Math.max(...lngs))
+      ),
+      { top: 40, right: 20, bottom: 20, left: 20 }
+    );
+  }
 }
 
 /* ===== Start ===== */

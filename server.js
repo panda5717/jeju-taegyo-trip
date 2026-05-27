@@ -189,6 +189,31 @@ app.delete('/api/budget/:id', async (req, res) => {
   }
 });
 
+// geocode proxy — Client Secret은 서버에서만 사용
+app.get('/api/geocode', async (req, res) => {
+  const query = req.query.q;
+  if (!query) return res.status(400).json({ error: 'q required' });
+  try {
+    const url = `https://maps.apigw.ntruss.com/map-geocode/v2/geocode?query=${encodeURIComponent(query)}`;
+    const r = await fetch(url, {
+      headers: {
+        'x-ncp-apigw-api-key-id': process.env.NAVER_CLIENT_ID,
+        'x-ncp-apigw-api-key': process.env.NAVER_CLIENT_SECRET,
+        Accept: 'application/json',
+      },
+    });
+    const data = await r.json();
+    if (data.addresses && data.addresses.length > 0) {
+      const { x, y } = data.addresses[0];
+      res.json({ lat: parseFloat(y), lng: parseFloat(x) });
+    } else {
+      res.json({ lat: null, lng: null });
+    }
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 const PORT = process.env.PORT || 3000;
 
 if (require.main === module) {
