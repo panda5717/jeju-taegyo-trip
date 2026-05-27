@@ -202,7 +202,9 @@ app.get('/api/geocode', async (req, res) => {
         Accept: 'application/json',
       },
     });
-    const data = await r.json();
+    const text = await r.text();
+    console.log('[geocode] status:', r.status, 'body:', text.slice(0, 300));
+    const data = JSON.parse(text);
     if (data.addresses && data.addresses.length > 0) {
       const { x, y } = data.addresses[0];
       res.json({ lat: parseFloat(y), lng: parseFloat(x) });
