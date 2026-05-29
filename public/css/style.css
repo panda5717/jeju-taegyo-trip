@@ -811,10 +811,11 @@ header h1 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 6px;
+  width: 100%;
 }
 .fuel-bar {
-  width: 34px;
-  height: 34px;
+  aspect-ratio: 1;
+  width: 100%;
   border-radius: 50%;
   border: 2px solid #cce4f0;
   background: #f4f8fd;
