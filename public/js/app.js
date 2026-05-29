@@ -1,3 +1,9 @@
+/* ===== Utils: local date ===== */
+function localToday() {
+  const d = new Date();
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+
 /* ===== State ===== */
 let state = { settings: {}, itinerary: [], checklist: [], budget: [] };
 let currentDay = null;
@@ -59,7 +65,7 @@ function fmtDate(d) {
 /* ===== Now Banner ===== */
 function updateNowBanner() {
   const now = new Date();
-  const today = now.toISOString().slice(0, 10);
+  const today = localToday();
   const { startDate, endDate } = state.settings;
   if (today < startDate || today > endDate) return;
 
@@ -108,7 +114,7 @@ function getDays() {
 function renderDayTabs() {
   const days = getDays();
   if (!currentDay || !days.includes(currentDay)) {
-    const today = new Date().toISOString().slice(0, 10);
+    const today = localToday();
     currentDay = days.includes(today) ? today : days[0];
   }
 
@@ -184,7 +190,7 @@ function getCat(category) {
 /* ===== Itinerary ===== */
 function renderItinerary() {
   const now = new Date();
-  const today = now.toISOString().slice(0, 10);
+  const today = localToday();
   const hhmm = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
 
   const items = state.itinerary
