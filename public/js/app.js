@@ -348,7 +348,7 @@ async function deleteCheck(id) {
 }
 
 /* ===== Fuel ===== */
-const FUEL_BARS = 8;
+const FUEL_BARS = 12;
 const FUEL_TANK_L = 35;
 const L_PER_BAR = FUEL_TANK_L / FUEL_BARS;
 
