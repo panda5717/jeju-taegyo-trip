@@ -423,16 +423,17 @@ async function saveFuelSetting(key, value) {
 
 /* ===== Budget ===== */
 // 실비 입력 가능한 일정 카테고리 (이 목록에 없는 항목은 실비 입력란 미표시)
-const COST_CATS = ['이동', '식사', '카페', '디저트'];
+const COST_CATS = ['이동', '식사', '카페', '디저트', '간식'];
 
 const ITIN_TO_BUDGET = {
   '식사': '식비',
-  '카페': '카페&디저트',
-  '디저트': '카페&디저트',
+  '카페': '카페&디저트&간식',
+  '디저트': '카페&디저트&간식',
+  '간식': '카페&디저트&간식',
   '이동': '주유비',
 };
 
-const AUTO_SYNC_CATS = ['식비', '카페&디저트', '주유비'];
+const AUTO_SYNC_CATS = ['식비', '카페&디저트&간식', '주유비'];
 
 function getItinByBudgetCat() {
   const result = {};
