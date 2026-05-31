@@ -684,14 +684,30 @@ function itineraryForm(item = {}) {
     </div>`;
 }
 
+function calcDuration(time, endTime) {
+  if (!time || !endTime) return '';
+  const [sh, sm] = time.split(':').map(Number);
+  const [eh, em] = endTime.split(':').map(Number);
+  const mins = (eh * 60 + em) - (sh * 60 + sm);
+  if (mins <= 0) return '';
+  const h = Math.floor(mins / 60);
+  const m = mins % 60;
+  if (h && m) return `${h}시간 ${m}분`;
+  if (h) return `${h}시간`;
+  return `${m}분`;
+}
+
 async function saveItineraryItem() {
+  const time = document.getElementById('f_time').value;
+  const endTime = document.getElementById('f_endTime').value;
   const body = {
     date: document.getElementById('f_date').value,
-    time: document.getElementById('f_time').value,
-    endTime: document.getElementById('f_endTime').value,
+    time,
+    endTime,
     place: document.getElementById('f_place').value,
     category: document.getElementById('f_category').value,
     memo: document.getElementById('f_memo').value,
+    duration: calcDuration(time, endTime),
   };
   if (!body.place) return alert('장소/항목을 입력해주세요.');
 
