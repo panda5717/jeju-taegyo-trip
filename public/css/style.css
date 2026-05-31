@@ -556,6 +556,11 @@ header h1 {
 }
 .budget-field input:focus { border-color: #0096c7; background: #fff; }
 .budget-memo { margin-top: 7px; font-size: 0.75rem; color: #88b8d0; }
+.budget-subitems { margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+.budget-subitem-row { display: flex; gap: 6px; align-items: center; }
+.budget-subitem-row .subitem-label { flex: 1; font-size: 0.85rem; }
+.budget-subitem-row .subitem-amount { width: 100px; font-size: 0.85rem; text-align: right; }
+.subitem-total { margin-top: 2px; font-size: 0.82rem; font-weight: 800; text-align: right; color: #2a6888; }
 .budget-diff {
   display: flex;
   justify-content: flex-end;

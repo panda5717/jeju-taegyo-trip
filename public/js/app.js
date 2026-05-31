@@ -467,6 +467,10 @@ function buildBudgetSummary() {
       const itinForCard = itinByCat[b.category];
       return s + (itinForCard ? itinForCard.actual : 0);
     }
+    if (b.category === '기타') {
+      const subs = Array.isArray(b.subItems) ? b.subItems : [];
+      return s + subs.reduce((ss, si) => ss + (Number(si.amount) || 0), 0);
+    }
     return s + (Number(b.actual) || 0);
   }, 0);
   const itin = itinCostTotals();
@@ -546,8 +550,11 @@ function renderBudget() {
       const manA = Number(b.actual) || 0;
       const itinA = itinForCard ? itinForCard.actual : 0;
       const isAutoSynced = AUTO_SYNC_CATS.includes(b.category);
+      const isGita = b.category === '기타';
+      const subItems = isGita ? (Array.isArray(b.subItems) ? b.subItems : []) : [];
+      const subTotal = subItems.reduce((s, si) => s + (Number(si.amount) || 0), 0);
       const totalP = manP;
-      const totalA = isAutoSynced ? itinA : manA;
+      const totalA = isAutoSynced ? itinA : (isGita ? subTotal : manA);
       const d = totalA - totalP;
       const hasDiff = totalP > 0 || totalA > 0;
       const diffHtml = hasDiff ? `
@@ -587,11 +594,26 @@ function renderBudget() {
             <label>실제 비용 (원)${isAutoSynced ? ' <span class="auto-badge">🔄 일정 자동합산</span>' : ''}</label>
             ${isAutoSynced
               ? `<div class="budget-actual-readonly">${itinA > 0 ? fmtWon(itinA) : '—'}</div>`
-              : `<input type="text" inputmode="numeric" value="${fmtNumInput(b.actual)}" placeholder="0"
-                  oninput="onNumInput(this)" onblur="saveBudgetField('${b.id}', 'actual', this.value)">`
+              : isGita
+                ? `<div class="budget-actual-readonly">${subTotal > 0 ? fmtWon(subTotal) : '—'}</div>`
+                : `<input type="text" inputmode="numeric" value="${fmtNumInput(b.actual)}" placeholder="0"
+                    oninput="onNumInput(this)" onblur="saveBudgetField('${b.id}', 'actual', this.value)">`
             }
           </div>
         </div>
+        ${isGita ? `
+        <div class="budget-subitems">
+          ${subItems.map(si => `
+            <div class="budget-subitem-row">
+              <input type="text" class="subitem-label" value="${esc(si.label || '')}" placeholder="항목명"
+                onblur="saveSubItem('${b.id}','${si.id}','label',this.value)">
+              <input type="text" class="subitem-amount" inputmode="numeric" value="${fmtNumInput(si.amount)}" placeholder="0"
+                oninput="onNumInput(this)" onblur="saveSubItem('${b.id}','${si.id}','amount',this.value)">
+              <button class="btn-del" onclick="deleteSubItem('${b.id}','${si.id}')">×</button>
+            </div>`).join('')}
+          <button class="btn-small" onclick="addSubItem('${b.id}')">+ 항목 추가</button>
+          ${subItems.length > 0 ? `<div class="subitem-total">합계: ${fmtWon(subTotal)}</div>` : ''}
+        </div>` : ''}
         ${diffHtml}
         ${itinHtml}
         ${b.memo ? `<div class="budget-memo">📝 ${esc(b.memo)}</div>` : ''}
@@ -612,6 +634,39 @@ async function saveBudgetField(id, field, value) {
   await api('PUT', `/api/budget/${id}`, { [field]: num });
   const item = state.budget.find(b => b.id === id);
   if (item) item[field] = num;
+  renderBudget();
+}
+
+async function addSubItem(budgetId) {
+  const budget = state.budget.find(b => b.id === budgetId);
+  if (!budget) return;
+  const subItems = Array.isArray(budget.subItems) ? [...budget.subItems] : [];
+  subItems.push({ id: Date.now().toString(36) + Math.random().toString(36).slice(2, 5), label: '', amount: null });
+  const updated = await api('PUT', `/api/budget/${budgetId}`, { subItems });
+  const idx = state.budget.findIndex(b => b.id === budgetId);
+  if (idx >= 0) state.budget[idx] = updated;
+  renderBudget();
+}
+
+async function deleteSubItem(budgetId, itemId) {
+  const budget = state.budget.find(b => b.id === budgetId);
+  if (!budget) return;
+  const subItems = (budget.subItems || []).filter(si => si.id !== itemId);
+  const updated = await api('PUT', `/api/budget/${budgetId}`, { subItems });
+  const idx = state.budget.findIndex(b => b.id === budgetId);
+  if (idx >= 0) state.budget[idx] = updated;
+  renderBudget();
+}
+
+async function saveSubItem(budgetId, itemId, field, value) {
+  const budget = state.budget.find(b => b.id === budgetId);
+  if (!budget) return;
+  const parsed = field === 'amount' ? (value ? Number(String(value).replace(/,/g, '')) : null) : value;
+  const subItems = (budget.subItems || []).map(si =>
+    si.id === itemId ? { ...si, [field]: parsed } : si
+  );
+  budget.subItems = subItems;
+  await api('PUT', `/api/budget/${budgetId}`, { subItems });
   renderBudget();
 }
 
